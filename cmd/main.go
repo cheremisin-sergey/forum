@@ -9,10 +9,7 @@ import (
 func main() {
 
 	config := config.NewConfig()
-	app
-	NewApp(config)
-	app.N
-
-
+	application := app.NewApp(config)
+	*application.
 
 }

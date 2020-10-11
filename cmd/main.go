@@ -10,6 +10,6 @@ func main() {
 
 	config := config.NewConfig()
 	application := app.NewApp(config)
-	*application.
+	application.startServer();
 
 }

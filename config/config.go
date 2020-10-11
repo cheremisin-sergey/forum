@@ -1,28 +1,69 @@
 package config
 
-import "github.com/kelseyhightower/envconfig"
+import (
+	"fmt"
+	"github.com/kelseyhightower/envconfig"
+	"gopkg.in/yaml.v3"
+	"os"
+	"time"
+)
 import jsoniter "github.com/json-iterator/go"
 
 const (
 	envPrefix = "FORUM"
 )
 
+//type Config struct {
+//	Address          string `env:"ADDRESS" envDefault:":8080"`
+//	AppName string `default:forum`
+//}
+
 type Config struct {
-	AppName string `default:forum`
+	ServerPort       string        `yaml:"port", envconfig:"FORUM_SERVER_PORT"`
+	ServerHost       string        `yaml:"host", envconfig:"FORUM_SERVER_HOST"`
+	DatabaseUsername string        `yaml:"user", envconfig:"FORUM_DB_USERNAME"`
+	DatabasePassword string        `yaml:"pass", envconfig:"FORUM_DB_PASSWORD"`
+	ReadTimeout      time.Duration `yaml:"read_timeout", envconfig: FORUM_SERVER_READ_TIMEOUT`
+	WriteTimeout     time.Duration `yaml:"read_timeout", envconfig: FORUM_SERVER_WRITE_TIMEOUT`
 }
 
 func NewConfig() *Config {
 	var config Config
 
-	err := envconfig.Process(envPrefix, &config)
+	readFile(&config)
+	readEnv(&config)
+	return &config
+}
+
+func processError(err error) {
+	fmt.Println(err)
+	os.Exit(2)
+}
+
+func readFile(cfg *Config) {
+	f, err := os.Open(".config/config.yml")
+	if err != nil {
+		processError(err)
+	}
+
+	decoder := yaml.NewDecoder(f)
+	err = decoder.Decode(cfg)
+	if err != nil {
+		processError(err)
+	}
+}
+
+func readEnv(config *Config) {
+	err := envconfig.Process(envPrefix, config)
 	if err == nil {
 
 		// TODO
-		_, err := jsoniter.Marshal(config)
+		data, err := jsoniter.Marshal(config)
 		if err != nil {
-
+			fmt.Println("Config fail")
+			processError(err)
+		} else {
+			fmt.Println("Config success", data)
 		}
 	}
-
-	return &config
 }

@@ -1,15 +1,17 @@
 package cmd
 
 import (
-	"fmt"
+
 	"github.com/cheremisin-sergey/forum/config"
-	"github.com/cheremisin-sergey/forum/app"
+	"github.com/cheremisin-sergey/forum/internal/app"
 )
 
 func main() {
 
 	config := config.NewConfig()
-	app := app.
+	app
+	NewApp(config)
+	app.N
 
 
 

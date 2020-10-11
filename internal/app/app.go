@@ -12,7 +12,7 @@ type App struct {
 }
 
 // NewServer will create a new instance of the application
-func NewApp(config *config.Config) App {
+func NewApp(config *config.Config) *App {
 	app := App{}
 	app.config = config
 
@@ -36,7 +36,7 @@ func NewApp(config *config.Config) App {
 	}
 
 	app.Server = server
-	return app
+	return &app
 }
 
 func (app *App) startServer() {

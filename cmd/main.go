@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 
@@ -10,6 +10,6 @@ func main() {
 
 	config := config.NewConfig()
 	application := app.NewApp(config)
-	application.startServer();
+	application.StartServer();
 
 }

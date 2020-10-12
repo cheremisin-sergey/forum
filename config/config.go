@@ -19,12 +19,12 @@ const (
 //}
 
 type Config struct {
-	ServerPort       string        `yaml:"port", envconfig:"FORUM_SERVER_PORT"`
-	ServerHost       string        `yaml:"host", envconfig:"FORUM_SERVER_HOST"`
-	DatabaseUsername string        `yaml:"user", envconfig:"FORUM_DB_USERNAME"`
-	DatabasePassword string        `yaml:"pass", envconfig:"FORUM_DB_PASSWORD"`
-	ReadTimeout      time.Duration `yaml:"read_timeout", envconfig: FORUM_SERVER_READ_TIMEOUT`
-	WriteTimeout     time.Duration `yaml:"read_timeout", envconfig: FORUM_SERVER_WRITE_TIMEOUT`
+	ServerPort       string        `yaml:"port" envconfig:"FORUM_SERVER_PORT"`
+	ServerHost       string        `yaml:"host" envconfig:"FORUM_SERVER_HOST"`
+	DatabaseUsername string        `yaml:"user" envconfig:"FORUM_DB_USERNAME"`
+	DatabasePassword string        `yaml:"pass" envconfig:"FORUM_DB_PASSWORD"`
+	ReadTimeout      time.Duration `yaml:"read_timeout" envconfig:"FORUM_SERVER_READ_TIMEOUT"`
+	WriteTimeout     time.Duration `yaml:"write_timeout" envconfig:"FORUM_SERVER_WRITE_TIMEOUT"`
 }
 
 func NewConfig() *Config {
@@ -40,17 +40,18 @@ func processError(err error) {
 	os.Exit(2)
 }
 
-func readFile(cfg *Config) {
-	f, err := os.Open(".config/config.yml")
+func readFile(config *Config) {
+	var f, err = os.Open(".config/config_local.yaml")
 	if err != nil {
 		processError(err)
 	}
 
 	decoder := yaml.NewDecoder(f)
-	err = decoder.Decode(cfg)
+	err = decoder.Decode(config)
 	if err != nil {
 		processError(err)
 	}
+	fmt.Println(config.ServerPort)
 }
 
 func readEnv(config *Config) {
@@ -63,7 +64,8 @@ func readEnv(config *Config) {
 			fmt.Println("Config fail")
 			processError(err)
 		} else {
-			fmt.Println("Config success", data)
+			fmt.Println(fmt.Sprintf("Config success %v", data));
 		}
 	}
+	fmt.Println(config.ServerPort)
 }

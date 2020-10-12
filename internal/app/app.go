@@ -25,10 +25,13 @@ func NewApp(config *config.Config) *App {
 	//app.db = app.modelRegistry.DB
 	//app.Server = NewRouter(app)
 
+
 	routersInit := InitRouter()
 
+	fmt.Println(config.ServerPort)
+	fmt.Println(fmt.Sprintf(":%v", config.ServerPort))
 	server := &http.Server{
-		Addr:           fmt.Sprintf(":%d", config.ServerPort),
+		Addr:           fmt.Sprintf(":%v", config.ServerPort),
 		Handler:        routersInit,
 		ReadTimeout:    config.ReadTimeout,
 		WriteTimeout:   config.WriteTimeout,
@@ -39,6 +42,9 @@ func NewApp(config *config.Config) *App {
 	return &app
 }
 
-func (app *App) startServer() {
-	app.Server.ListenAndServe()
+func (app *App) StartServer() {
+	err := app.Server.ListenAndServe()
+	if err != nil {
+		fmt.Println(err)
+	}
 }

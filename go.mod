@@ -3,6 +3,7 @@ module github.com/cheremisin-sergey/forum
 go 1.15
 
 require (
+	github.com/gin-gonic/gin v1.6.3
 	github.com/json-iterator/go v1.1.10
 	github.com/kelseyhightower/envconfig v1.4.0
 	golang.org/x/text v0.3.3 // indirect

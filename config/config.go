@@ -19,10 +19,10 @@ const (
 //}
 
 type Config struct {
-	ServerPort       string        `yaml:"port" envconfig:"FORUM_SERVER_PORT"`
-	ServerHost       string        `yaml:"host" envconfig:"FORUM_SERVER_HOST"`
-	DatabaseUsername string        `yaml:"user" envconfig:"FORUM_DB_USERNAME"`
-	DatabasePassword string        `yaml:"pass" envconfig:"FORUM_DB_PASSWORD"`
+	ServerPort       string        `yaml:"server_port" envconfig:"FORUM_SERVER_PORT"`
+	ServerHost       string        `yaml:"server_host" envconfig:"FORUM_SERVER_HOST"`
+	DatabaseUsername string        `yaml:"username" envconfig:"FORUM_DB_USERNAME"`
+	DatabasePassword string        `yaml:"password" envconfig:"FORUM_DB_PASSWORD"`
 	ReadTimeout      time.Duration `yaml:"read_timeout" envconfig:"FORUM_SERVER_READ_TIMEOUT"`
 	WriteTimeout     time.Duration `yaml:"write_timeout" envconfig:"FORUM_SERVER_WRITE_TIMEOUT"`
 }
@@ -51,7 +51,6 @@ func readFile(config *Config) {
 	if err != nil {
 		processError(err)
 	}
-	fmt.Println(config.ServerPort)
 }
 
 func readEnv(config *Config) {

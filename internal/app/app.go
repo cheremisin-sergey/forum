@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/cheremisin-sergey/forum/config"
 	"net/http"
+	_ "github.com/lib/pq"
 )
 
 type App struct {
@@ -15,6 +16,10 @@ type App struct {
 func NewApp(config *config.Config) *App {
 	app := App{}
 	app.config = config
+
+
+	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
+		config.DatabaseUsername, config.DatabasePassword, DB_NAME)
 
 	//err := app.modelRegistry.OpenWithConfig(config)
 	//

@@ -21,8 +21,9 @@ const (
 type Config struct {
 	ServerPort       string        `yaml:"server_port" envconfig:"FORUM_SERVER_PORT"`
 	ServerHost       string        `yaml:"server_host" envconfig:"FORUM_SERVER_HOST"`
-	DatabaseUsername string        `yaml:"username" envconfig:"FORUM_DB_USERNAME"`
-	DatabasePassword string        `yaml:"password" envconfig:"FORUM_DB_PASSWORD"`
+	DatabaseUsername string        `yaml:"database_username" envconfig:"FORUM_DB_DATABASE_USERNAME"`
+	DatabasePassword string        `yaml:"database_password" envconfig:"FORUM_DB_DATABASE_PASSWORD"`
+	DatabaseName     string        `yaml:"database_name" envconfig:"FORUM_DB_DATABASE_NAME"`
 	ReadTimeout      time.Duration `yaml:"read_timeout" envconfig:"FORUM_SERVER_READ_TIMEOUT"`
 	WriteTimeout     time.Duration `yaml:"write_timeout" envconfig:"FORUM_SERVER_WRITE_TIMEOUT"`
 }
@@ -63,7 +64,7 @@ func readEnv(config *Config) {
 			fmt.Println("Config fail")
 			processError(err)
 		} else {
-			fmt.Println(fmt.Sprintf("Config success %v", data));
+			fmt.Println(fmt.Sprintf("Config success %v", data))
 		}
 	}
 	fmt.Println(config.ServerPort)

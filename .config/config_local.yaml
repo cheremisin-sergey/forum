@@ -1,6 +1,7 @@
 server_host: "localhost"
 server_port: 8000
-username: "admin"
-password: "super-pedro-1980"
+database_username: "admin"
+database_password: "super-pedro-1980"
+database_name: "forum"
 read_timeout: 60s
 write_timeout: 60s

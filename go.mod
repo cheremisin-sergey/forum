@@ -3,6 +3,8 @@ module github.com/cheremisin-sergey/forum
 go 1.15
 
 require (
+	github.com/EDDYCJY/go-gin-example v0.0.0-20200505102242-63963976dee0
+	github.com/astaxie/beego v1.12.2
 	github.com/gin-gonic/gin v1.6.3
 	github.com/json-iterator/go v1.1.10
 	github.com/kelseyhightower/envconfig v1.4.0
